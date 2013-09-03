@@ -134,7 +134,7 @@ redditScrape <- function(subred = c('nameOfSubred', 'allTop'), time = c('day', '
 	}
 
 	# Save the file to your drive. This way you can drop it into
-	# Wordle.com or use it other places. 
+	# Wordle.net or use it other places. 
 	if (saveText == TRUE) {
 		curWD <- getwd() 
 		setwd(myDirectory)
