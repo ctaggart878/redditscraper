@@ -53,7 +53,7 @@ redditScrape <- function(subred = c('nameOfSubred', 'allTop'), time = c('day', '
 	links <- xpathSApply(doc, "//a/@href")
 	comments <- grep("comments", links)
 	comLinks <- links[comments]
-	comments <- grep('reddit.com', comLinks)
+	comments <- grep('reddit.com', comLinks, fixed=TRUE)
 	comLinks <- comLinks[comments]
 
 
