@@ -29,10 +29,12 @@ redditScrape <- function(subred = c('nameOfSubred', 'allTop'), time = c('day', '
 	require(RColorBrewer) 
 	require(wordcloud)
 	
+	# if more than one time, apply function to each time frame separately
 	if (length(time) > 1) { 
-		cat("Choose a single timeframe (e.g., day, week, month, or year) \n")
-		return(NA)
-		}
+	  return(lapply(time, function(i) 
+	    redditScrape(subred=subred, time=i, saveText=saveText, myDirectory=myDirectory)))
+	}
+	
 
 	#######################################################
 	# 1. Make the url, get the page. 
