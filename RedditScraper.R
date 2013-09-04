@@ -81,28 +81,27 @@ redditScrape <- function(subred = c('nameOfSubred', 'allTop'), time = c('day', '
 	# Removing lines capturing user and points, etc.
 	# Yes, there could be fewer grep calls, but this made it 
 	# easier to keep track of what was going on.
-	for (i in 1:length(textList)) { 
-		grep('points 1 minute ago', textList[[i]]) -> nameLines1
-		grep('points [0-9] minutes ago', textList[[i]]) -> nameLines2
-		grep('points [0-9][0-9] minutes ago', textList[[i]]) -> nameLines3
-		grep("points 1 hour ago", textList[[i]]) -> nameLines4
-		grep("points [0-9] hours ago", textList[[i]]) -> nameLines5
-		grep("points [0-9][0-9] hours ago", textList[[i]]) -> nameLines6
-		grep('points 1 day ago', textList[[i]]) -> nameLines7
-		grep('points [0-9] days ago', textList[[i]]) -> nameLines8
-		grep('points [0-9][0-9] days ago', textList[[i]]) -> nameLines9
-		grep('points 1 month ago', textList[[i]]) -> nameLines10
-		grep('points [0-9] months ago', textList[[i]]) -> nameLines11
-		grep('points [0-9][0-9] months ago', textList[[i]]) -> nameLines12
-		allLines <- c(nameLines1, nameLines2, nameLines3, nameLines4, 
-			nameLines5, nameLines6, nameLines7, nameLines8, nameLines9, 
-			nameLines10, nameLines11, nameLines12)
-		textList[[i]] <- textList[[i]][-allLines]
-		textList[[i]] <- textList[[i]][textList[[i]]!=""]
-		textList[[i]] <- tolower(textList[[i]])
-	}
-
-
+	textList <- lapply(textList, function(i){
+            		grep('points 1 minute ago', i) -> nameLines1
+            		grep('points [0-9] minutes ago', i) -> nameLines2
+            		grep('points [0-9][0-9] minutes ago', i) -> nameLines3
+            		grep("points 1 hour ago", i) -> nameLines4
+            		grep("points [0-9] hours ago", i) -> nameLines5
+            		grep("points [0-9][0-9] hours ago", i) -> nameLines6
+            		grep('points 1 day ago', i) -> nameLines7
+            		grep('points [0-9] days ago', i) -> nameLines8
+            		grep('points [0-9][0-9] days ago', i) -> nameLines9
+            		grep('points 1 month ago', i) -> nameLines10
+            		grep('points [0-9] months ago', i) -> nameLines11
+            		grep('points [0-9][0-9] months ago', i) -> nameLines12
+            		allLines <- c(nameLines1, nameLines2, nameLines3, nameLines4, 
+            			nameLines5, nameLines6, nameLines7, nameLines8, nameLines9, 
+            			nameLines10, nameLines11, nameLines12)
+            		temp <- i[-allLines]
+            		temp <- temp[temp!=""]
+            		tolower(temp)
+            	  })
+  
 	# Let's simplify our list. Could have been done earlier, but so it goes. 
 	allText <- unlist(textList)
 
